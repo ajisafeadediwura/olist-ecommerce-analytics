@@ -104,6 +104,33 @@ Scope: delivered orders, Jan 2017 to Aug 2018. Customers are identified by `cust
 - The rate is a floor. Customers whose first order fell before Jan 2017 are counted as one-time buyers if only one order falls in the window, customers acquired late in the window have little time to return, and only delivered orders are counted.
 - The highest order count is 15, well above the typical repeater's two.
 
+## 7. Delivery time by customer state
+
+Scope: delivered orders with a customer delivery date, Jan 2017 to Aug 2018. Delivery time runs from purchase to customer delivery. An order is late if it arrived after its estimated delivery timestamp.
+
+| State | Orders | Average days | Median days | Late % |
+|---|---|---|---|---|
+| RR | 40 | 29.9 | 25.1 | 12.5 |
+| AP | 67 | 27.2 | 24.3 | 4.5 |
+| AM | 145 | 26.4 | 25.9 | 4.1 |
+| AL | 396 | 24.5 | 22.3 | 24.0 |
+| PA | 942 | 23.8 | 21.1 | 12.4 |
+| MA | 713 | 21.5 | 19.2 | 19.6 |
+| BA | 3,253 | 19.3 | 16.9 | 14.0 |
+| RJ | 12,310 | 15.3 | 12.0 | 13.5 |
+| MG | 11,319 | 12.0 | 10.3 | 5.6 |
+| SP | 40,399 | 8.7 | 7.2 | 5.9 |
+
+- Average delivery time ranges from 8.7 days (SP) to 29.9 days (RR). The North and Northeast are slowest, and the Southeast and South are fastest.
+- States with the highest freight share also tend to have the longest delivery times (RR highest on both, SP lowest on both).
+- Lateness does not follow delivery time. AM, AP, and RO deliver slowly but are rarely late (2.9% to 4.5%), which suggests longer estimates for remote destinations. AL (24.0%) and MA (19.6%) have the highest late rates, and RJ is late on 13.5% of orders despite a 15.3-day average.
+- About 8% of delivered orders were late (approximate, weighted from state rates). SP and RJ account for roughly 30% and 21% of late orders. RJ has 12.8% of orders.
+- In every state the mean exceeds the median, so a minority of very slow deliveries stretches the averages.
+- RR, AP, and AC rest on fewer than 100 orders each.
+
+
+
+
 
 
 
