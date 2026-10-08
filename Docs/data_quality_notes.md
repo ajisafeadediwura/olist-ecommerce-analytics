@@ -23,3 +23,23 @@ The geolocation file is excluded. Location analysis uses the city and state fiel
 - Customer-level analysis (retention, RFM, repeat rate) uses `customer_unique_id`. Using `customer_id` would treat every order as a new customer.
 - The gap between 99,441 orders and 96,096 unique customers (3,345) comes from customers who placed more than one order.
 - Orders can have more than one review row, so reviews must be reduced to one row per order before joining to orders. Joining directly would duplicate orders and distort revenue and review averages.
+
+- ## 2. Order status
+
+| Status | Orders | % of orders |
+|---|---|---|
+| delivered | 96,478 | 97.02 |
+| shipped | 1,107 | 1.11 |
+| canceled | 625 | 0.63 |
+| unavailable | 609 | 0.61 |
+| invoiced | 314 | 0.32 |
+| processing | 301 | 0.30 |
+| created | 5 | 0.01 |
+| approved | 2 | 0.00 |
+
+Delivered orders make up 97.02% of the dataset. The remaining 2,963 orders (2.98%) are canceled, unavailable, or at an intermediate stage with no confirmed delivery.
+
+**Decisions**
+
+- Revenue, delivery performance, and review analysis are restricted to delivered orders, so every metric uses one consistent definition of a completed sale.
+- Non-delivered orders are retained in the source tables and used only for the order status funnel.
