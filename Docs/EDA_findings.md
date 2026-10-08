@@ -44,6 +44,23 @@ Scope: delivered orders, Jan 2017 to Aug 2018.
 - Freight equals 16.6% of item revenue.
 - There are about 1.03 orders per customer. 3,107 orders came from customers who had already ordered in the window, roughly 3% of orders.
 
+## 4. Revenue by customer state
 
+Scope: delivered orders, Jan 2017 to Aug 2018. State is the customer's state.
+
+| State | Orders | Revenue | % of revenue | Average order value |
+|---|---|---|---|---|
+| SP | 40,406 | 5,055,587 | 38.36 | 125.12 |
+| RJ | 12,310 | 1,751,434 | 13.29 | 142.28 |
+| MG | 11,319 | 1,548,207 | 11.75 | 136.78 |
+| RS | 5,328 | 726,374 | 5.51 | 136.33 |
+| PR | 4,903 | 664,048 | 5.04 | 135.44 |
+| SC | 3,537 | 504,774 | 3.83 | 142.71 |
+
+- The top three states (SP, RJ, MG) generate 63.4% of revenue and 66.6% of orders. The top six generate 77.8% of revenue.
+- SP accounts for 42.0% of orders but 38.4% of revenue: it has the lowest average order value of any large state (125.12 against 137.00 overall).
+- Thirteen states each contribute under 1% of revenue and together make up about 6.1%.
+- Average order value is higher in remote states (PB 218.09, AP 199.62, AC 199.14, AL 199.00, PA 184.06). One possible explanation is that high shipping costs discourage small orders. This is untested.
+- Averages for the smallest states (RR 40 orders, AP 67, AC 80) rest on few orders and are not reliable.
 
 
