@@ -188,6 +188,32 @@ LEFT JOIN product_category_translation t
 GROUP BY 1, 2
 ORDER BY revenue DESC;
 
+-- COMMAND --------
+-- Payment method -------
+WITH payments AS (
+  SELECT
+    order_id,
+    SUM(payment_value)               AS paid,
+    MAX_BY(payment_type, payment_value) AS primary_type,
+    MAX(payment_installments)        AS max_installments
+  FROM order_payments
+  WHERE payment_value > 0
+  GROUP BY order_id
+),
+in_scope AS (
+  SELECT DISTINCT order_id FROM delivered_items
+)
+SELECT
+  p.primary_type,
+  COUNT(*)                                            AS orders,
+  ROUND(100.0 * COUNT(*) / SUM(COUNT(*)) OVER (), 2)  AS pct_of_orders,
+  ROUND(AVG(p.paid), 2)                               AS avg_paid,
+  ROUND(AVG(p.max_installments), 1)                   AS avg_installments
+FROM payments p
+JOIN in_scope s USING (order_id)
+GROUP BY p.primary_type
+ORDER BY orders DESC;
+
 
 
 
