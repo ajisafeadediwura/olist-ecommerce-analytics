@@ -101,3 +101,38 @@ LEFT JOIN activity a
  AND a.months_since_first = e.months_since_first
 GROUP BY e.months_since_first
 ORDER BY e.months_since_first;
+-- COMMAND -----------
+-- Timing of repeating purchases ----------
+WITH customer_orders AS (
+  SELECT
+    customer_unique_id,
+    order_id,
+    MIN(order_purchase_timestamp) AS purchased_at
+  FROM delivered_items
+  GROUP BY customer_unique_id, order_id
+),
+repeaters AS (
+  SELECT customer_unique_id
+  FROM customer_orders
+  GROUP BY customer_unique_id
+  HAVING COUNT(*) > 1
+),
+spans AS (
+  SELECT
+    customer_unique_id,
+    DATEDIFF(MAX(purchased_at), MIN(purchased_at)) AS days_between_first_and_last
+  FROM customer_orders
+  WHERE customer_unique_id IN (SELECT customer_unique_id FROM repeaters)
+  GROUP BY customer_unique_id
+)
+SELECT
+  CASE WHEN days_between_first_and_last = 0 THEN 'same day'
+       WHEN days_between_first_and_last <= 30 THEN '1-30 days'
+       ELSE 'over 30 days' END AS gap_between_first_and_last_order,
+  COUNT(*) AS repeat_customers
+FROM spans
+GROUP BY 1
+ORDER BY MIN(days_between_first_and_last);
+
+
+
