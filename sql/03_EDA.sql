@@ -214,7 +214,37 @@ JOIN in_scope s USING (order_id)
 GROUP BY p.primary_type
 ORDER BY orders DESC;
 
-
+-- COMMAND ---------
+-- Credit card installment --------
+WITH payments AS (
+  SELECT
+    order_id,
+    SUM(payment_value)                  AS paid,
+    MAX_BY(payment_type, payment_value) AS primary_type,
+    MAX(payment_installments)           AS installments
+  FROM order_payments
+  WHERE payment_value > 0
+  GROUP BY order_id
+),
+in_scope AS (
+  SELECT DISTINCT order_id FROM delivered_items
+)
+SELECT
+  CASE WHEN installments < 1 THEN '0 (invalid)'
+       WHEN installments = 1 THEN '1'
+       WHEN installments BETWEEN 2 AND 3 THEN '2-3'
+       WHEN installments BETWEEN 4 AND 6 THEN '4-6'
+       WHEN installments BETWEEN 7 AND 10 THEN '7-10'
+       ELSE '11+' END                                     AS installment_band,
+  COUNT(*)                                                AS orders,
+  ROUND(100.0 * COUNT(*) / SUM(COUNT(*)) OVER (), 2)      AS pct_of_card_orders,
+  ROUND(AVG(paid), 2)                                     AS avg_paid,
+  ROUND(PERCENTILE(paid, 0.5), 2)                         AS median_paid
+FROM payments
+JOIN in_scope USING (order_id)
+WHERE primary_type = 'credit_card'
+GROUP BY 1
+ORDER BY MIN(installments);
 
 
 
