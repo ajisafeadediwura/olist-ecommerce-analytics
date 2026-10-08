@@ -128,7 +128,22 @@ Scope: delivered orders with a customer delivery date, Jan 2017 to Aug 2018. Del
 - In every state the mean exceeds the median, so a minority of very slow deliveries stretches the averages.
 - RR, AP, and AC rest on fewer than 100 orders each.
 
+## 8. Revenue by number of orders placed
 
+Scope: delivered orders, Jan 2017 to Aug 2018, by `customer_unique_id`. Orders per segment are derived from the totals in section 3.
+
+| Orders placed | Customers | Orders | Revenue | % of revenue | Revenue per customer | Revenue per order |
+|---|---|---|---|---|---|---|
+| 1 | 90,315 | 90,315 | 12,455,672 | 94.50 | 137.91 | 137.91 |
+| 2 | 2,562 | 5,124 | 628,326 | 4.77 | 245.25 | 122.62 |
+| 3 | 180 | 540 | 65,870 | 0.50 | 365.94 | 121.98 |
+| 4+ | 47 | 232 | 31,159 | 0.24 | 662.97 | 134.31 |
+
+- Repeat customers are 3.0% of customers, 6.1% of orders, and 5.5% of revenue. About 94.5% of revenue came from customers who ordered once in the window.
+- A repeat customer spent about 1.9 times as much as a one-time customer in the window (260.08 against 137.91), because of more orders and not larger ones.
+- Orders from repeat customers average 123.02, about 11% below the 137.91 average for one-time customers.
+- 91.9% of repeat customers ordered exactly twice.
+- The window understates repeat behaviour for customers whose earlier or later orders fall outside it.
 
 
 
