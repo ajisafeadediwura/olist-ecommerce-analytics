@@ -168,3 +168,35 @@ FROM delivered
 GROUP BY customer_state
 ORDER BY avg_days_early DESC;
 
+-- COMMAND -----
+-- Revenue by product category --------
+WITH lines AS (
+  SELECT d.order_id, d.price, d.freight_value, p.product_category_name
+  FROM delivered_items d
+  JOIN products p ON d.product_id = p.product_id
+)
+SELECT
+  COALESCE(l.product_category_name, 'unknown')                  AS category_pt,
+  t.product_category_name_english                               AS category_en,
+  COUNT(DISTINCT l.order_id)                                    AS orders,
+  ROUND(SUM(l.price), 2)                                        AS revenue,
+  ROUND(100.0 * SUM(l.price) / SUM(SUM(l.price)) OVER (), 2)    AS pct_of_revenue,
+  ROUND(100.0 * SUM(l.freight_value) / SUM(l.price), 1)         AS freight_pct_of_price
+FROM lines l
+LEFT JOIN product_category_translation t
+  ON l.product_category_name = t.product_category_name
+GROUP BY 1, 2
+ORDER BY revenue DESC;
+
+
+
+
+
+
+
+
+
+
+
+
+
