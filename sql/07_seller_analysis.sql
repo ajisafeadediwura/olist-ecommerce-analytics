@@ -299,3 +299,38 @@ FROM cuts c
 JOIN ranked r ON r.rnk <= c.top_n
 GROUP BY c.top_n
 ORDER BY c.top_n;
+
+-- COMMAND ----------
+-- 14. Customers in SP: seller in SP versus seller outside SP.
+-- Holding the customer's state fixed isolates the effect of seller location.
+
+SELECT
+  CASE WHEN s.seller_state = 'SP' THEN 'seller in SP' ELSE 'seller outside SP' END AS seller_location,
+  COUNT(*)                                            AS orders,
+  ROUND(AVG(d.delivery_days), 1)                      AS avg_days,
+  ROUND(PERCENTILE(d.delivery_days, 0.5), 1)          AS median_days,
+  ROUND(100.0 * COUNT_IF(d.is_late) / COUNT(*), 1)    AS late_pct
+FROM seller_orders o
+JOIN sellers s          ON o.seller_id = s.seller_id
+JOIN delivery_reviews d ON o.order_id = d.order_id
+WHERE d.customer_state = 'SP'
+GROUP BY 1
+ORDER BY 1;
+
+-- COMMAND --------------
+-- 15. Established sellers (50+ orders) by late-rate band
+
+SELECT
+  CASE WHEN late_pct >= 20 THEN '1. 20% or more'
+       WHEN late_pct >= 15 THEN '2. 15% to under 20%'
+       WHEN late_pct >= 10 THEN '3. 10% to under 15%'
+       ELSE                     '4. under 10%' END                  AS late_rate_band,
+  COUNT(*)                                                          AS sellers,
+  SUM(orders)                                                       AS orders,
+  SUM(late_orders)                                                  AS late_orders,
+  ROUND(100.0 * SUM(late_orders) / SUM(orders), 1)                  AS late_pct,
+  ROUND(100.0 * SUM(late_orders) / SUM(SUM(late_orders)) OVER (), 1) AS pct_of_late_among_these_sellers
+FROM seller_delivery
+WHERE orders >= 50
+GROUP BY 1
+ORDER BY 1;
