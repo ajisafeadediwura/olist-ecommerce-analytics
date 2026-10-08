@@ -43,3 +43,28 @@ Delivered orders make up 97.02% of the dataset. The remaining 2,963 orders (2.98
 
 - Revenue, delivery performance, and review analysis are restricted to delivered orders, so every metric uses one consistent definition of a completed sale.
 - Non-delivered orders are retained in the source tables and used only for the order status funnel.
+
+## 3. Timestamp completeness by order status
+
+| Status | Orders | No approval date | No carrier date | No customer delivery date |
+|---|---|---|---|---|
+| delivered | 96,478 | 14 | 2 | 8 |
+| shipped | 1,107 | 0 | 0 | 1,107 |
+| canceled | 625 | 141 | 550 | 619 |
+| unavailable | 609 | 0 | 609 | 609 |
+| invoiced | 314 | 0 | 314 | 314 |
+| processing | 301 | 0 | 301 | 301 |
+| created | 5 | 5 | 5 | 5 |
+| approved | 2 | 0 | 2 | 2 |
+
+Timestamps are largely consistent with order status. Exceptions:
+
+- 8 delivered orders have no customer delivery date.
+- 6 canceled orders have a customer delivery date and 75 have a carrier date, so some cancellations occurred after shipment.
+- All 1,107 shipped orders have no delivery date.
+
+**Decisions**
+
+- Delivery time and on-time metrics use delivered orders with a customer delivery date (96,470 orders). The 8 delivered orders without one are excluded from those metrics only and remain in revenue.
+- Delivered orders without an approval date (14) are retained, as approval time is not used in the analysis.
+- Canceled orders are excluded from delivery analysis regardless of any delivery timestamp.
