@@ -188,7 +188,21 @@ Scope: delivered orders, Jan 2017 to Aug 2018. Orders can contain several catego
 - `bed_bath_table` has the most orders but ranks third in revenue. `watches_gifts` ranks second in revenue with 7th-highest order volume.
 - Freight share is lowest for high-priced categories (`pcs` 4.4%, `watches_gifts` 8.4%) and highest for bulky, low-value ones (`furniture_decor` 23.7%, `housewares` 23.2%).
 - Products with no category (`unknown`) account for 1.29% of revenue and rank 21st.
+## 11. Payment methods
 
+Scope: delivered orders, Jan 2017 to Aug 2018. Each order is assigned its primary payment type (the type with the largest payment value), and zero-value payments are excluded. Amounts paid include freight, so they are not comparable with the order values in section 1. Installments are the highest installment count on the order.
+
+| Primary payment type | Orders | % of orders | Average paid | Average installments |
+|---|---|---|---|---|
+| credit_card | 72,619 | 75.48 | 166.13 | 3.5 |
+| boleto | 19,140 | 19.89 | 144.32 | 1.0 |
+| voucher | 2,970 | 3.09 | 114.86 | 1.1 |
+| debit_card | 1,482 | 1.54 | 140.44 | 1.0 |
+
+- Credit card and boleto together are the primary payment type on 95.4% of orders.
+- Credit card orders average 166.13, about 15% above boleto orders (144.32). Credit card orders average 3.5 installments, while boleto and debit orders have one. Weighted by orders, credit cards account for an estimated 78.5% of paid value, boleto 18.0%, vouchers 2.2%, and debit cards 1.4%.
+- Order-weighted average paid across the four types is 159.81, which matches average item value per order plus average freight per order (137.00 + 22.78 = 159.78).
+- About 3% of orders have more than one payment row, so primary type is an approximation of how the order was paid.
 
 
 
