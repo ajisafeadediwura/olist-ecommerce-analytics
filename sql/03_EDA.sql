@@ -97,3 +97,30 @@ SELECT
   ROUND(100.0 * COUNT_IF(orders > 1) / COUNT(*), 2)   AS repeat_rate_pct,
   MAX(orders)                                         AS max_orders_by_one_customer
 FROM customer_orders;
+
+-- COMMAND --------
+-- Delivery by customer state--------
+WITH delivered AS (
+  SELECT
+    c.customer_state,
+    (UNIX_TIMESTAMP(o.order_delivered_customer_date)
+       - UNIX_TIMESTAMP(o.order_purchase_timestamp)) / 86400.0   AS days_to_deliver,
+    o.order_delivered_customer_date > o.order_estimated_delivery_date AS is_late
+  FROM orders o
+  JOIN customers c ON o.customer_id = c.customer_id
+  WHERE o.order_status = 'delivered'
+    AND o.order_delivered_customer_date IS NOT NULL
+    AND o.order_purchase_timestamp >= '2017-01-01'
+    AND o.order_purchase_timestamp <  '2018-09-01'
+)
+SELECT
+  customer_state,
+  COUNT(*)                                            AS orders,
+  ROUND(AVG(days_to_deliver), 1)                      AS avg_days,
+  ROUND(PERCENTILE(days_to_deliver, 0.5), 1)          AS median_days,
+  ROUND(100.0 * COUNT_IF(is_late) / COUNT(*), 1)      AS late_pct
+FROM delivered
+GROUP BY customer_state
+ORDER BY avg_days DESC;
+
+
