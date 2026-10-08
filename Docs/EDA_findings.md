@@ -167,5 +167,28 @@ Scope: delivered orders with a customer delivery date, Jan 2017 to Aug 2018. Pro
 - Late rates are lowest where promised time is about twice actual time (SP, MG, RO) and highest where it is 1.3 to 1.5 times (AL, MA, SE, CE).
 - RJ's late rate (13.5%) is not explained by a tight estimate: its buffer (11.0 days) is similar to SP's and SC's. Its mean delivery time is 3.3 days above its median, which points to a tail of slow deliveries. To be tested in the delivery analysis.
 
+## 10. Revenue by product category
+
+Scope: delivered orders, Jan 2017 to Aug 2018. Orders can contain several categories, so order counts do not sum to the total, and revenue per order is approximate. Revenue percentages sum to 100% across all 74 groups.
+
+| Category | Orders | Revenue | % of revenue | Revenue per order | Freight % of price |
+|---|---|---|---|---|---|
+| health_beauty | 8,610 | 1,229,558 | 9.33 | 142.8 | 14.5 |
+| watches_gifts | 5,491 | 1,163,466 | 8.83 | 211.9 | 8.4 |
+| bed_bath_table | 9,267 | 1,022,956 | 7.76 | 110.4 | 19.7 |
+| sports_leisure | 7,513 | 952,840 | 7.23 | 126.8 | 17.1 |
+| computers_accessories | 6,518 | 888,056 | 6.74 | 136.2 | 16.2 |
+| furniture_decor | 6,258 | 706,237 | 5.36 | 112.9 | 23.7 |
+| housewares | 5,734 | 614,342 | 4.66 | 107.1 | 23.2 |
+| cool_stuff | 3,552 | 609,158 | 4.62 | 171.5 | 13.3 |
+| auto | 3,802 | 577,838 | 4.38 | 152.0 | 15.6 |
+| garden_tools | 3,443 | 469,135 | 3.56 | 136.3 | 20.6 |
+
+- The top 5 categories generate 39.9% of revenue and the top 10 generate 62.5%. The remaining 48 categories each contribute under 1% and together about 9.1%.
+- `bed_bath_table` has the most orders but ranks third in revenue. `watches_gifts` ranks second in revenue with 7th-highest order volume.
+- Freight share is lowest for high-priced categories (`pcs` 4.4%, `watches_gifts` 8.4%) and highest for bulky, low-value ones (`furniture_decor` 23.7%, `housewares` 23.2%).
+- Products with no category (`unknown`) account for 1.29% of revenue and rank 21st.
+
+
 
 
