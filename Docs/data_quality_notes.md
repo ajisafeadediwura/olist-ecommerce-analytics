@@ -162,3 +162,43 @@ Payments have one row per payment instalment or method (`payment_sequential`). R
 
 - Products with no category are labelled `unknown` so they remain in category totals as their own group.
 - Category names are joined to the translation table with a LEFT JOIN. Categories with no translation are given an English name in the category dimension view, so no products are dropped.
+
+ ## 9. Value sanity checks
+
+| Check | Violations |
+|---|---|
+| Non-positive item price | 0 |
+| Negative freight | 0 |
+| Zero or negative payment value | 9 |
+| Review score outside 1 to 5 | 0 |
+| Delivered to customer before purchase | 0 |
+| Delivered to customer before carrier pickup | 23 |
+
+Item prices, freight, review scores, and purchase-to-delivery timing are valid. Two exceptions were found: 9 payment rows with a value of zero or less, and 23 orders where the customer delivery timestamp precedes the carrier pickup timestamp.
+
+**Decisions**
+
+- Zero-value payment rows are excluded from payment method analysis. They do not affect revenue, which is based on order items.
+- The 23 orders with inconsistent carrier and delivery timestamps are retained in purchase-to-delivery metrics, and excluded from any metric that uses the carrier pickup date.
+
+## 10. Price and freight distribution
+
+| Measure | Item price | Freight |
+|---|---|---|
+| Minimum | 0.85 | n/a |
+| Median | 74.99 | 16.26 |
+| Mean | 120.65 | n/a |
+| 95th percentile | 349.90 | n/a |
+| Maximum | 6,735.00 | 409.68 |
+
+Item prices are right-skewed: the mean is about 1.6 times the median, and the maximum is about 90 times the median.
+
+**Decisions**
+
+- Medians are reported alongside means for price, freight, and order value, and charts state which is shown.
+- High-priced items are retained. They pass validity checks, and removing them would understate revenue.
+
+
+
+
+
