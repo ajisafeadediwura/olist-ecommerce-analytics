@@ -123,4 +123,21 @@ FROM delivered
 GROUP BY customer_state
 ORDER BY avg_days DESC;
 
-
+-- COMMAND --------
+-- Revenue by order of customer sales ---------
+WITH customer_orders AS (
+  SELECT
+    customer_unique_id,
+    COUNT(DISTINCT order_id) AS orders,
+    SUM(price)               AS revenue
+  FROM delivered_items
+  GROUP BY customer_unique_id
+)
+SELECT
+  CASE WHEN orders >= 4 THEN '4+' ELSE CAST(orders AS STRING) END AS orders_placed,
+  COUNT(*)                                                        AS customers,
+  ROUND(SUM(revenue), 2)                                          AS revenue,
+  ROUND(100.0 * SUM(revenue) / SUM(SUM(revenue)) OVER (), 2)      AS pct_of_revenue
+FROM customer_orders
+GROUP BY 1
+ORDER BY 1;
