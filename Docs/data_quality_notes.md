@@ -151,6 +151,12 @@ Payments have one row per payment instalment or method (`payment_sequential`). R
 - Reviews are reduced to one row per order, keeping the most recent review, in the view `order_reviews_dedup`.
 - Neither table is joined to `order_items` at row level, since that would duplicate item rows and inflate revenue.
 
+**Review duplicates examined**
+
+A sample of 9 orders with more than one review showed two patterns. Some are near-identical resubmissions (same score, submitted within about a minute), and some are later reviews with a different score, submitted 5 to 10 days after the first. Of the 9 orders, 4 changed score between reviews (3 down, 1 up). The creation date and the answer timestamp disagree about which review is later in one order, where both scores were the same.
+
+The rule is unchanged: keep the most recent review per order, ordered by answer timestamp, then creation date, then `review_id` for a deterministic result. The view also carries `reviews_on_order`. Orders with extra reviews are about 0.55% of reviewed orders (547 of 98,673), so the rule has little effect on averages.
+
 ## 8. Product categories
 
 | Check | Count |
