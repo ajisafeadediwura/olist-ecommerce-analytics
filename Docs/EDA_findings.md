@@ -63,4 +63,28 @@ Scope: delivered orders, Jan 2017 to Aug 2018. State is the customer's state.
 - Average order value is higher in remote states (PB 218.09, AP 199.62, AC 199.14, AL 199.00, PA 184.06). One possible explanation is that high shipping costs discourage small orders. This is untested.
 - Averages for the smallest states (RR 40 orders, AP 67, AC 80) rest on few orders and are not reliable.
 
+## 5. Freight by customer state
 
+Scope: delivered orders, Jan 2017 to Aug 2018. Freight share is total freight divided by total item price.
+
+| State | Orders | Freight share of price |
+|---|---|---|
+| RR | 40 | 27.8% |
+| MA | 713 | 26.2% |
+| RO | 243 | 24.7% |
+| AM | 145 | 24.5% |
+| SE | 332 | 24.3% |
+| PI | 475 | 24.2% |
+| ... | | |
+| RJ | 12,310 | 16.8% |
+| DF | 2,074 | 16.7% |
+| MS | 701 | 16.4% |
+| SP | 40,406 | 13.9% |
+
+Overall freight share is 16.6%.
+
+- Freight share ranges from 13.9% (SP) to 27.8% (RR). The 16 highest-freight states are all in the North or Northeast.
+- The six largest states by revenue have the lowest freight shares (13.9% to 18.2%).
+- States with higher freight shares also tend to have above-average order values, but the ranking does not match exactly: the highest order values (PB, AL, AC, AP) sit mid-table on freight. The relationship is consistent with high shipping costs discouraging small orders, but this is untested.
+- Freight also depends on product weight and size, so distance alone does not explain the differences.
+- RR, AP, and AC rest on fewer than 100 orders each.
