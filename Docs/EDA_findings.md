@@ -204,5 +204,23 @@ Scope: delivered orders, Jan 2017 to Aug 2018. Each order is assigned its primar
 - Order-weighted average paid across the four types is 159.81, which matches average item value per order plus average freight per order (137.00 + 22.78 = 159.78).
 - About 3% of orders have more than one payment row, so primary type is an approximation of how the order was paid.
 
+## 12. Credit card installments
+
+Scope: delivered orders with credit card as the primary payment type (72,619 orders), Jan 2017 to Aug 2018. Amounts paid include freight.
+
+| Installments | Orders | % of card orders | Average paid | Median paid |
+|---|---|---|---|---|
+| 0 (invalid) | 2 | 0.00 | 94.32 | 94.32 |
+| 1 | 23,311 | 32.10 | 100.65 | 71.54 |
+| 2 to 3 | 21,961 | 30.24 | 134.96 | 111.60 |
+| 4 to 6 | 15,643 | 21.54 | 181.74 | 128.02 |
+| 7 to 10 | 11,373 | 15.66 | 333.44 | 205.85 |
+| 11 or more | 329 | 0.45 | 361.50 | 218.80 |
+
+- Average and median amounts paid rise with each installment band. Only 32.1% of card orders are paid in a single installment.
+- Orders with four or more installments are 37.7% of card orders and an estimated 56% of card paid value. Orders with 7 to 10 installments are 15.7% of card orders and an estimated 31% of card paid value.
+- Two card orders have an installment count of zero, which is invalid. They are retained and reported separately.
+- The relationship is an association. Customers buying more expensive items may choose longer installment plans, so the data does not show that installments increase basket size.
+
 
 
