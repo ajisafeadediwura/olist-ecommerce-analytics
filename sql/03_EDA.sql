@@ -141,3 +141,30 @@ SELECT
 FROM customer_orders
 GROUP BY 1
 ORDER BY 1;
+
+-- COMMAND --------
+-- Promised versus actual delivery time ----------
+WITH delivered AS (
+  SELECT
+    c.customer_state,
+    (UNIX_TIMESTAMP(o.order_delivered_customer_date)
+       - UNIX_TIMESTAMP(o.order_purchase_timestamp)) / 86400.0   AS actual_days,
+    (UNIX_TIMESTAMP(o.order_estimated_delivery_date)
+       - UNIX_TIMESTAMP(o.order_purchase_timestamp)) / 86400.0   AS promised_days
+  FROM orders o
+  JOIN customers c ON o.customer_id = c.customer_id
+  WHERE o.order_status = 'delivered'
+    AND o.order_delivered_customer_date IS NOT NULL
+    AND o.order_purchase_timestamp >= '2017-01-01'
+    AND o.order_purchase_timestamp <  '2018-09-01'
+)
+SELECT
+  customer_state,
+  COUNT(*)                                          AS orders,
+  ROUND(AVG(promised_days), 1)                      AS avg_promised_days,
+  ROUND(AVG(actual_days), 1)                        AS avg_actual_days,
+  ROUND(AVG(promised_days - actual_days), 1)        AS avg_days_early
+FROM delivered
+GROUP BY customer_state
+ORDER BY avg_days_early DESC;
+
