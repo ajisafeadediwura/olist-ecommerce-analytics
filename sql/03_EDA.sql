@@ -71,3 +71,29 @@ SELECT
 FROM delivered_items
 GROUP BY order_month
 ORDER BY order_month;
+
+-- COMMAND ----------
+-- Freight by state ----------
+SELECT
+  customer_state,
+  COUNT(DISTINCT order_id)                              AS orders,
+  ROUND(SUM(price), 2)                                  AS revenue,
+  ROUND(SUM(freight_value), 2)                          AS freight,
+  ROUND(100.0 * SUM(freight_value) / SUM(price), 1)     AS freight_pct_of_price
+FROM delivered_items
+GROUP BY customer_state
+ORDER BY freight_pct_of_price DESC;
+
+-- COMMAND ----------
+-- Repeat customers ----------
+WITH customer_orders AS (
+  SELECT customer_unique_id, COUNT(DISTINCT order_id) AS orders
+  FROM delivered_items
+  GROUP BY customer_unique_id
+)
+SELECT
+  COUNT(*)                                            AS customers,
+  COUNT_IF(orders > 1)                                AS repeat_customers,
+  ROUND(100.0 * COUNT_IF(orders > 1) / COUNT(*), 2)   AS repeat_rate_pct,
+  MAX(orders)                                         AS max_orders_by_one_customer
+FROM customer_orders;
