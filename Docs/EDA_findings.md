@@ -145,7 +145,27 @@ Scope: delivered orders, Jan 2017 to Aug 2018, by `customer_unique_id`. Orders p
 - 91.9% of repeat customers ordered exactly twice.
 - The window understates repeat behaviour for customers whose earlier or later orders fall outside it.
 
+## 9. Promised versus actual delivery time
 
+Scope: delivered orders with a customer delivery date, Jan 2017 to Aug 2018. Promised days run from purchase to the estimated delivery date, and days early is promised minus actual (negative when late). Late % is from section 7.
+
+| State | Orders | Avg promised days | Avg actual days | Avg days early | Late % |
+|---|---|---|---|---|---|
+| AC | 80 | 41.1 | 21.0 | 20.1 | 3.8 |
+| RO | 243 | 38.8 | 19.4 | 19.4 | 2.9 |
+| AP | 67 | 46.2 | 27.2 | 19.1 | 4.5 |
+| AM | 145 | 45.3 | 26.4 | 18.9 | 4.1 |
+| SP | 40,399 | 19.1 | 8.7 | 10.3 | 5.9 |
+| RJ | 12,310 | 26.3 | 15.3 | 11.0 | 13.5 |
+| CE | 1,273 | 31.2 | 21.2 | 9.9 | 15.4 |
+| MA | 713 | 30.3 | 21.5 | 8.7 | 19.6 |
+| AL | 396 | 32.5 | 24.5 | 8.0 | 24.0 |
+
+- On average orders arrive before the promised date in every state, by 8.0 days (AL) to 20.1 days (AC). Late deliveries are a tail of the distribution.
+- The North's long delivery times are mostly inside the estimates: AC, RO, AP, and AM have the largest buffers (19 to 20 days) and late rates of 2.9% to 4.5%.
+- AL and MA have the smallest buffers (8.0 and 8.7 days) and the highest late rates (24.0% and 19.6%). Estimates there are tight relative to actual delivery times.
+- Late rates are lowest where promised time is about twice actual time (SP, MG, RO) and highest where it is 1.3 to 1.5 times (AL, MA, SE, CE).
+- RJ's late rate (13.5%) is not explained by a tight estimate: its buffer (11.0 days) is similar to SP's and SC's. Its mean delivery time is 3.3 days above its median, which points to a tail of slow deliveries. To be tested in the delivery analysis.
 
 
 
