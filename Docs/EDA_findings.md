@@ -88,3 +88,22 @@ Overall freight share is 16.6%.
 - States with higher freight shares also tend to have above-average order values, but the ranking does not match exactly: the highest order values (PB, AL, AC, AP) sit mid-table on freight. The relationship is consistent with high shipping costs discouraging small orders, but this is untested.
 - Freight also depends on product weight and size, so distance alone does not explain the differences.
 - RR, AP, and AC rest on fewer than 100 orders each.
+
+## 6. Repeat purchasing
+
+Scope: delivered orders, Jan 2017 to Aug 2018. Customers are identified by `customer_unique_id`.
+
+| Measure | Value |
+|---|---|
+| Customers | 93,104 |
+| Customers with more than one order | 2,789 |
+| Repeat rate | 3.00% |
+| Most orders by one customer | 15 |
+
+- Only 3.00% of customers ordered more than once within the window. Repeat customers account for about 6.1% of orders, roughly 2.1 orders each.
+- The rate is a floor. Customers whose first order fell before Jan 2017 are counted as one-time buyers if only one order falls in the window, customers acquired late in the window have little time to return, and only delivered orders are counted.
+- The highest order count is 15, well above the typical repeater's two.
+
+
+
+
