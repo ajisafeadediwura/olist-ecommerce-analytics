@@ -68,3 +68,97 @@ Timestamps are largely consistent with order status. Exceptions:
 - Delivery time and on-time metrics use delivered orders with a customer delivery date (96,470 orders). The 8 delivered orders without one are excluded from those metrics only and remain in revenue.
 - Delivered orders without an approval date (14) are retained, as approval time is not used in the analysis.
 - Canceled orders are excluded from delivery analysis regardless of any delivery timestamp.
+
+  
+## 4. Date coverage
+
+Orders per month, by purchase timestamp:
+
+| Period | Orders per month | Note |
+|---|---|---|
+| Sep 2016 | 4 | Dataset start, not representative |
+| Oct 2016 | 324 | Sparse |
+| Nov 2016 | none | No orders recorded |
+| Dec 2016 | 1 | Sparse |
+| Jan 2017 | 800 | Early ramp-up |
+| Feb to Oct 2017 | 1,780 to 4,631 | Growth |
+| Nov 2017 | 7,544 | Peak month |
+| Dec 2017 | 5,673 | |
+| Jan to Aug 2018 | 6,167 to 7,269 | Plateau |
+| Sep 2018 | 16 | Extract cut-off |
+| Oct 2018 | 4 | Extract cut-off |
+
+**Decisions**
+
+- Trend analysis uses the complete window Jan 2017 to Aug 2018. The 349 orders outside it (329 in 2016, 20 in Sep and Oct 2018) are excluded from time-trend metrics only.
+- Year-over-year comparisons use matching months (Jan to Aug 2018 against Jan to Aug 2017).
+- Cohort retention for recent cohorts is understated because of shorter follow-up time, and is labelled as such.
+- The Power BI date table spans continuous months so the missing Nov 2016 does not drop out of the calendar.
+
+## 5. Referential integrity
+
+| Check | Violations |
+|---|---|
+| Orders without a customer | 0 |
+| Order items without an order | 0 |
+| Order items without a product | 0 |
+| Order items without a seller | 0 |
+| Order payments without an order | 0 |
+| Order reviews without an order | 0 |
+| Orders without items | 775 |
+| Orders without payments | 1 |
+| Orders without a review | 768 |
+
+All child records link to a valid parent. The unmatched orders are orders with no child records, not orphaned child records.
+
+**Decisions**
+
+- Order counts join with LEFT JOIN so orders without items, payments, or reviews are retained. Revenue is based on order items.
+- Payments and reviews are reduced to one row per order before joining to orders, to avoid duplicating order rows.
+- Review-based metrics report coverage, i.e. the share of delivered orders that have a review.
+
+## 6. Payments reconciliation
+
+Order totals from items (price plus freight) were compared with payments, each aggregated to one row per order before joining. All order statuses are included in this check.
+
+| Measure | Value |
+|---|---|
+| Orders compared | 98,665 |
+| Orders differing by more than 1 | 249 (0.25%) |
+| Total items value (price plus freight) | 15,843,409.78 |
+| Total paid value | 15,846,280.17 |
+
+Total payments exceed item value by about 2,870 (0.018%). The cause of the 249 larger differences is not determinable from the data.
+
+**Decisions**
+
+- Revenue is defined from `order_items` (item price, delivered orders only). Freight is reported separately.
+- Payments are used for payment method and installment analysis, not for revenue.
+- The 249 mismatched orders are retained, as their impact is immaterial.
+
+## 7. Multiple rows per order
+
+| Table | Orders with more than one row |
+|---|---|
+| order_payments | 2,961 |
+| order_reviews | 547 |
+
+Payments have one row per payment instalment or method (`payment_sequential`). Reviews have more than one row on 547 orders, and a few orders have three.
+
+**Decisions**
+
+- Payments are aggregated to one row per order before joining. Payment method analysis assigns each order its primary payment type (largest payment value) and flags orders paid with multiple methods.
+- Reviews are reduced to one row per order, keeping the most recent review, in the view `order_reviews_dedup`.
+- Neither table is joined to `order_items` at row level, since that would duplicate item rows and inflate revenue.
+
+## 8. Product categories
+
+| Check | Count |
+|---|---|
+| Products with no category | 610 (1.85% of 32,951) |
+| Categories without an English translation | 2 |
+
+**Decisions**
+
+- Products with no category are labelled `unknown` so they remain in category totals as their own group.
+- Category names are joined to the translation table with a LEFT JOIN. Categories with no translation are given an English name in the category dimension view, so no products are dropped.
