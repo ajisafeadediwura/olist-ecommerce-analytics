@@ -28,3 +28,22 @@ Scope: delivered orders, Jan 2017 to Aug 2018. Revenue is the sum of item price 
 - Orders rose from 20 Nov in the run-up to the event.
 - Average order value was lowest in the event week, consistent with promotional buying. The data has no discount field, so this cannot be confirmed.
 - Excluding the Black Friday week, November ran at about 171 orders a day against about 144 in October, so the November peak sits on top of continued underlying growth, not a one-off jump in baseline.
+
+## 3. Headline KPIs
+
+Scope: delivered orders, Jan 2017 to Aug 2018.
+
+| Measure | Value |
+|---|---|
+| Orders | 96,211 |
+| Customers | 93,104 |
+| Revenue (item price) | 13,181,027 |
+| Freight | 2,192,093 |
+| Average order value | 137.00 |
+
+- Freight equals 16.6% of item revenue.
+- There are about 1.03 orders per customer. 3,107 orders came from customers who had already ordered in the window, roughly 3% of orders.
+
+
+
+
