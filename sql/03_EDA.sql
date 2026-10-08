@@ -38,6 +38,16 @@ WHERE o.order_status = 'delivered'
   AND o.order_purchase_timestamp <  '2018-09-01';
 
 -- COMMAND ----------
+-- November spike(Black friday)
+SELECT
+  DATE(order_purchase_timestamp)                    AS order_date,
+  COUNT(DISTINCT order_id)                          AS orders,
+  ROUND(SUM(price), 2)                              AS revenue
+FROM delivered_items
+WHERE order_month = '2017-11-01'
+GROUP BY 1
+ORDER BY 1;
+-- COMMAND ----------
 
 -- Headline KPIs for the analysis window
 
