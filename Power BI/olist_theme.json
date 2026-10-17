@@ -1,0 +1,22 @@
+{
+  "name": "Olist Portfolio",
+  "dataColors": [
+    "#1F3A5F",
+    "#E07A1F",
+    "#2A9D8F",
+    "#8FA3BF",
+    "#B23A48",
+    "#6B7280",
+    "#F2C14E",
+    "#4C7A9A"
+  ],
+  "background": "#FFFFFF",
+  "foreground": "#1F2937",
+  "tableAccent": "#1F3A5F",
+  "good": "#2A9D8F",
+  "neutral": "#F2C14E",
+  "bad": "#B23A48",
+  "maximum": "#1F3A5F",
+  "center": "#F2C14E",
+  "minimum": "#E5E7EB"
+}
